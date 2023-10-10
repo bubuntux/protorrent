@@ -34,9 +34,6 @@ RUN \
   rm -rf /tmp/*
 
 EXPOSE 8080
-
-# ? 
 VOLUME /config
 VOLUME /downloads
-
 ENTRYPOINT [ "/init" ]
