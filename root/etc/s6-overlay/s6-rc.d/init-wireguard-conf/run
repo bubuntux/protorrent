@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ ! -f /config/wireguard/wg0.conf ]; then
+	error "Wireguard config not found!"
+fi
+
+rm -rf /etc/wireguard
+mkdir -p /etc/wireguard
+ln -s /config/wireguard/wg0.conf /etc/wireguard/wg0.conf
+chmod 700 /etc/wireguard/wg0.conf

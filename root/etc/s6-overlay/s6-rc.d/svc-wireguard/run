@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+
+info "Starting Wireguard connection..."
+wg-quick up wg0
+wg show wg0
+info "Wireguard connection is up! \(ᵔᵕᵔ)/"

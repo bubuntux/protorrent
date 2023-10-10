@@ -1,0 +1,5 @@
+#!/bin/sh
+
+info "Stopping Wireguard connection..."
+wg show wg0
+wg-quick down wg0

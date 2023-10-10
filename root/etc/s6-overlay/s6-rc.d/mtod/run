@@ -1,0 +1,27 @@
+#!/bin/sh
+
+cat << EOF
+----------------------------------------------------
+  ____            _                            _   
+ |  _ \ _ __ ___ | |_ ___  _ __ _ __ ___ _ __ | |_ 
+ | |_) | '__/ _ \| __/ _ \| '__| '__/ _ \ '_ \| __|
+ |  __/| | | (_) | || (_) | |  | | |  __/ | | | |_ 
+ |_|   |_|  \___/ \__\___/|_|  |_|  \___|_| |_|\__|
+
+     Made with ❤ by https://github.com/bubuntux     
+____________________________________________________   
+
+🔧 Need help? https://github.com/bubuntux/protorrent/discussions/new
+🐛 Bug? https://github.com/bubuntux/protorrent/issues/new
+☕ Discussion? https://github.com/bubuntux/protorrent/discussions/new
+💻 Email? protorrent.limeade106@passmail.net
+💰 Help me? https://github.com/sponsors/bubuntux
+
+$(uname -a)
+$(wg --version)
+$(iptables --version)
+$(qbittorrent-nox --version)
+User UID: $(id -u abc)
+User GID: $(id -g abc)
+
+EOF

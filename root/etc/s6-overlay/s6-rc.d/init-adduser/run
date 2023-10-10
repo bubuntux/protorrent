@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
+
+if [ "$PGID" != "1000" ]; then
+	groupmod -o -g "$PGID" abc
+fi
+if [ "$PUID" != "1000" ]; then
+	usermod -o -u "$PUID" abc
+fi
+
+chown -R abc:abc /config
+chown -R abc:abc /defaults

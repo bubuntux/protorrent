@@ -1,0 +1,28 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+port="$(curl -s "localhost:${QBT_WEBUI_PORT}/api/v2/app/preferences" | jq -r '.listen_port')"
+
+if [[ ! ${port} =~ ^[0-9]+$ ]]; then
+	warn "Unable to get listening port from qBittorrent"
+	exit 0
+fi
+
+while true; do
+	newport="$( (natpmpc -a 1 0 udp 60 -g 10.2.0.1 && natpmpc -a 1 0 tcp 60 -g 10.2.0.1) | grep "Mapped public port" | cut -d ' ' -f4 | head -n 1)"
+	if [[ ! ${newport} =~ ^[0-9]+$ ]]; then
+		warn "Unable to get listening port from natpmpc"
+		exit 0
+	fi
+
+	if [[ $port != "$newport" ]]; then
+		port=$newport
+		http_code="$(curl -d "json={\"listen_port\": $port}" "localhost:${QBT_WEBUI_PORT}/api/v2/app/setPreferences" --write-out "%{http_code}" -o /dev/null -s)"
+		if [[ $http_code -ne 200 ]]; then
+			warn "Failed to set listening port to $port"
+			exit 0
+		fi
+		info "Listening port changed to $port"
+	fi
+	sleep 45
+done
