@@ -22,7 +22,7 @@ RUN \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
   echo "*** install packages ***" && \
-  apk add --no-cache patch bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
+  apk add --no-cache patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
   echo "*** patch wg-quick ***" && \
   patch --verbose -d / -p 0 -i /tmp/wg-quick.patch && \
   echo "**** create abc user and make our folders ****" && \
