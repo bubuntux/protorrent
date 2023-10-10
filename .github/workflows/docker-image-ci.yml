@@ -31,7 +31,7 @@ jobs:
             tags="${tags},ghcr.io/${{ github.repository }}:latest,${{ github.repository }}:latest,\
                   ghcr.io/${{ github.repository }}:$(date '+%Y-%m-%d'),${{ github.repository }}:$(date '+%Y-%m-%d')"
           fi
-          echo "name=tags::${tags}" >> $GITHUB_OUTPUT
+          echo "tags=${tags}" >> $GITHUB_OUTPUT
 
       - name: Checkout repository
         uses: actions/checkout@v4
