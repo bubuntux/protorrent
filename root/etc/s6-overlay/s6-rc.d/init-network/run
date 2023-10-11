@@ -24,7 +24,7 @@ iptables -A OUTPUT -o lo -j ACCEPT
 
 iptables -A INPUT -i wg+ -j ACCEPT
 #iptables -A FORWARD -i wg+ -j ACCEPT
-#iptables -t nat -A POSTROUTING -o wg+ -j MASQUERADE
+iptables -t nat -A POSTROUTING -o wg+ -j MASQUERADE
 iptables -A OUTPUT -o wg+ -j ACCEPT
 
 ifaces=($(ip link | awk -F': ' '$0 !~ "lo|wg|tun|tap|^[^0-9]"{print $2;getline}' | cut -d@ -f1))
