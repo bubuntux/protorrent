@@ -36,7 +36,6 @@ for iface in "${ifaces[@]}"; do
 		iptables -A OUTPUT -o "${iface}" -d "${net}" -j ACCEPT
 		iptables -A FORWARD -i "${iface}" -d "${net}" -j ACCEPT
 		iptables -A FORWARD -i "${iface}" -s "${net}" -j ACCEPT
-		#iptables -A OUTPUT -o "${iface}" -p udp -m udp --dport 51820 -j ACCEPT
 	else
 		warn "Skipping interface ${iface} with no IP address"
 	fi
