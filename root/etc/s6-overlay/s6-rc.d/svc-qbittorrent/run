@@ -3,5 +3,5 @@
 
 info "Starting qbittorrent..."
 exec \
-	s6-notifyoncheck -d -n 300 -w 1000 -c "nc -z localhost ${QBT_WEBUI_PORT}" \
+	s6-notifyoncheck -d -c "nc -z localhost ${QBT_WEBUI_PORT}" \
 	s6-setuidgid abc /usr/bin/qbittorrent-nox 
