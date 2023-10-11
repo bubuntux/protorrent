@@ -22,5 +22,5 @@ $(iptables --version)
 $(qbittorrent-nox --version)
 User UID: $(id -u abc)
 User GID: $(id -g abc)
-____________________________________________________
+----------------------------------------------------
 EOF
