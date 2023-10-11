@@ -1,8 +1,9 @@
+#!/usr/bin/bash
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
 if ! iptables -L > /dev/null 2>&1; then
-  error "iptables is not functional. Ensure your container config adds --cap-add=NET_RAW" 
+	error "iptables is not functional. Ensure your container config adds --cap-add=NET_RAW"
 fi
 
 iptables -F
@@ -24,20 +25,36 @@ iptables -A OUTPUT -o lo -j ACCEPT
 
 iptables -A INPUT -i wg+ -j ACCEPT
 #iptables -A FORWARD -i wg+ -j ACCEPT
+iptables -t nat -A POSTROUTING -o wg+ -j MASQUERADE
 iptables -A OUTPUT -o wg+ -j ACCEPT
 
 ifaces=($(ip link | awk -F': ' '$0 !~ "lo|wg|tun|tap|^[^0-9]"{print $2;getline}' | cut -d@ -f1))
 for iface in "${ifaces[@]}"; do
-  inet="$(ip -o addr show dev "${iface}" | awk '$3 == "inet" {print $4}')"
-  if [[ -z "$inet" ]]; then
-    warn "Skipping connection to ${iface} ${inet}"
-    continue
-  fi
-  info "Enabling connection to ${iface} ${inet}"
-  iptables -A INPUT -i "$iface" -s "${inet}" -j ACCEPT
-  iptables -A OUTPUT -o "$iface" -d "${inet}" -j ACCEPT
-  iptables -A FORWARD -i "$iface" -d "${inet}" -j ACCEPT
-  iptables -A FORWARD -i "$iface" -s "${inet}" -j ACCEPT
-  iptables -A OUTPUT -o "$iface" -p udp -m udp --dport 51820 -j ACCEPT
-done
+	net="$(ip -o addr show dev "${iface}" | awk '$3 == "inet" {print $4}')"
+	if [[ -n ${net} ]]; then
+		info "Enabling connection to network ${net} on ${iface}"
+		iptables -A INPUT -i "${iface}" -s "${net}" -j ACCEPT
+		iptables -A OUTPUT -o "${iface}" -d "${net}" -j ACCEPT
+		iptables -A FORWARD -i "${iface}" -d "${net}" -j ACCEPT
+		iptables -A FORWARD -i "${iface}" -s "${net}" -j ACCEPT
+		#iptables -A OUTPUT -o "${iface}" -p udp -m udp --dport 51820 -j ACCEPT
+	else
+		warn "Skipping interface ${iface} with no IP address"
+	fi
 
+	if [ -n "${NET_LOCAL}" ]; then
+		gw="$(ip route | grep "${iface}" | awk '/default/{print $3}')"
+		if [[ -n ${gw} ]]; then
+			for net in ${NET_LOCAL//[;,]/ }; do
+				info "Enabling connection to network ${net} via ${gw} on ${iface}"
+				ip route | grep -q "${net}" || ip route add "${net}" via "$gw" dev "${iface}"
+				iptables -A INPUT -i "${iface}" -s "${net}" -j ACCEPT
+				iptables -A OUTPUT -o "${iface}" -d "${net}" -j ACCEPT
+				iptables -A FORWARD -i "${iface}" -d "${net}" -j ACCEPT
+				iptables -A FORWARD -i "${iface}" -s "${net}" -j ACCEPT
+			done
+		else
+			warn "Skipping interface ${iface} with no default route"
+		fi
+	fi
+done
