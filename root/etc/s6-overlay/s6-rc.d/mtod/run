@@ -10,18 +10,17 @@ cat << EOF
 
      Made with ❤ by https://github.com/bubuntux     
 ____________________________________________________   
-
 🔧 Need help? https://github.com/bubuntux/protorrent
 🐛 Bug? https://github.com/bubuntux/protorrent/issues/new
 ☕ Discussion? https://github.com/bubuntux/protorrent/discussions/new
 💻 Email? protorrent.limeade106@passmail.net
 💰 Help me? https://github.com/sponsors/bubuntux
-
+----------------------------------------------------
 $(uname -a)
 $(wg --version)
 $(iptables --version)
 $(qbittorrent-nox --version)
 User UID: $(id -u abc)
 User GID: $(id -g abc)
-
+____________________________________________________
 EOF
