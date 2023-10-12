@@ -27,6 +27,11 @@ iptables -A INPUT -i wg+ -j ACCEPT
 iptables -t nat -A POSTROUTING -o wg+ -j MASQUERADE
 iptables -A OUTPUT -o wg+ -j ACCEPT
 
+port="$(cat /config/wireguard/wg0.conf | grep Endpoint | cut -d ' ' -f3 | cut -d: -f2)"
+ip="$(cat /config/wireguard/wg0.conf | grep Endpoint | cut -d ' ' -f3 | cut -d: -f1)"
+info "Enabling connection to VPN server (${ip}:${port})"
+iptables -A OUTPUT -p udp -m udp --dport "${port}" -d "${ip}" -j ACCEPT
+
 ifaces=($(ip link | awk -F': ' '$0 !~ "lo|wg|tun|tap|^[^0-9]"{print $2;getline}' | cut -d@ -f1))
 for iface in "${ifaces[@]}"; do
 	net="$(ip -o addr show dev "${iface}" | awk '$3 == "inet" {print $4}')"
@@ -37,7 +42,7 @@ for iface in "${ifaces[@]}"; do
 		iptables -A FORWARD -i "${iface}" -d "${net}" -j ACCEPT
 		iptables -A FORWARD -i "${iface}" -s "${net}" -j ACCEPT
 	else
-		warn "Skipping interface ${iface} with no IP address"
+		info "Skipping interface ${iface} with no IP address"
 	fi
 
 	if [ -n "${NET_LOCAL}" ]; then
@@ -52,7 +57,7 @@ for iface in "${ifaces[@]}"; do
 				iptables -A FORWARD -i "${iface}" -s "${net}" -j ACCEPT
 			done
 		else
-			warn "Skipping interface ${iface} with no default route"
+			info "Skipping interface ${iface} with no default route"
 		fi
 	fi
 done
