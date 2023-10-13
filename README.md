@@ -7,7 +7,7 @@
     <a href="https://hub.docker.com/r/bubuntux/protorrent/"><img src="https://badgen.net/docker/stars/bubuntux/protorrent?icon=docker&label=stars"/></a>
     <a href="https://github.com/bubuntux/protorrent"><img src="https://badgen.net/github/forks/bubuntux/protorrent?icon=github&label=forks&color=black"/></a>
     <a href="https://github.com/bubuntux/protorrent"><img src="https://badgen.net/github/stars/bubuntux/protorrent?icon=github&label=stars&color=black"/></a>
-    <a href="https://github.com/bubuntux/protorrent/actions/workflows/docker-image-ci.yml"><img src="https://github.com/bubuntux/protorrent/actions/workflows/docker-image-ci.yml/badge.svg?branch=master"/></a>
+    <a href="https://github.com/bubuntux/protorrent/actions/workflows/docker-image-ci.yml"><img src="https://github.com/bubuntux/protorrent/actions/workflows/docker-image-ci.yml/badge.svg?branch=main"/></a>
 </p>
 
 # Protorrent
