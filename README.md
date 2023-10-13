@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://github.com/bubuntux/protorrent">Protorrent</a>
+    <a href="https://github.com/bubuntux/protorrent"><img src="https://raw.githubusercontent.com/bubuntux/protorrent/main/.github/header.png"/></a>
     </br>
     <a href="https://github.com/bubuntux/protorrent/blob/master/LICENSE"><img src="https://badgen.net/github/license/bubuntux/protorrent?color=cyan"/></a>
     <a href="https://hub.docker.com/r/bubuntux/protorrent/"><img src="https://badgen.net/docker/size/bubuntux/protorrent?icon=docker&label=size"/></a>
