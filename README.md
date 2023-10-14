@@ -14,6 +14,31 @@
 Proton VPN + qBtittorrent
 
 # How to use this image
+First you need to obtain the wireguard configurations from https://account.protonvpn.com/downloads: 
+- Enable VPN Accelerator
+- Enable NAT-PMP (Port Forwarding)
+- Select a server that supports p2p.
+  
+Place this configuration file inside <localDir>/wireguard/
+
+Start the container using (or equivalent)  
+
+    docker run -d --privileged -v <localDir>:/config -p 8080:8080 ghcr.io/bubuntux/protorrent
+
+The container is gonna be accessible only locally or through the docker network, meaning that you will need a reverse proxy like [swag](https://github.com/linuxserver/docker-swag) or [traeffik](https://doc.traefik.io/traefik/providers/docker/) to access it when not running locally.
+
+You can also add an environment variable that would open the traffic to the specified network
+    
+    docker run -d --privileged -v <localDir>:/config -p 8080:8080 -e NET_LOCAL=192.168.0.0/24 ghcr.io/bubuntux/protorrent
+
+# Environent ( -e )
+
+|                 Variable                 |    Default     | Description |
+|:-----------------------------------------|:--------------:| --- |
+|                 `PUID`                |        1000    |   for UserID |
+|                 `GUID`                |        1000    |   for GroupID |
+|               `NET_LOCAL`               |          | CIDR networks (IE 192.168.1.0/24), add a route to allows replies once the VPN is up.
+|                   `TZ`                  |               UTC             | Specify a timezone to use EG Europe/London.
 
 
 # Disclaimer 
