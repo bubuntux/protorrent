@@ -19,7 +19,7 @@ First you need to obtain the wireguard configurations from https://account.proto
 - Enable NAT-PMP (Port Forwarding)
 - Select a server that supports p2p.
   
-Place this configuration file inside <localDir>/wireguard/
+Save this configuration file as /config/wireguard/wg0.conf
 
 Start the container using (or equivalent)  
 
