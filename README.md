@@ -36,7 +36,7 @@ You can also add an environment variable that would open the traffic to the spec
 |                 Variable                 |    Default     | Description |
 |:-----------------------------------------|:--------------:| --- |
 |                 `PUID`                |        1000    |   for UserID |
-|                 `GUID`                |        1000    |   for GroupID |
+|                 `PGID`                |        1000    |   for GroupID |
 |               `NET_LOCAL`               |          | CIDR networks (IE 192.168.1.0/24), add a route to allows replies once the VPN is up.
 |                   `TZ`                  |               UTC             | Specify a timezone to use EG Europe/London.
 
