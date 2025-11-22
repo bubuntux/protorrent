@@ -1,3 +1,7 @@
+# ⚠️ THIS REPOSITORY IS NOT MAINTAINED ⚠️
+
+**I recommend switching to use [github.com/qdm12/gluetun](https://github.com/qdm12/gluetun) instead.**
+
 <p align="center">
     <a href="https://github.com/bubuntux/protorrent"><img src="https://raw.githubusercontent.com/bubuntux/protorrent/main/.github/header.png"/></a>
     </br>
